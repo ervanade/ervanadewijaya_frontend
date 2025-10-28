@@ -9,8 +9,10 @@ export default function Navbar() {
         <div className="text-lg text-white font-semibold">iMeeting</div>
       </div>
       <div className="flex items-center gap-4">
-      <img alt="logo_ftl" src="/assets/profile.png" />
+      <img alt="icon_notif" src="/assets/icons/notif.png" />
+      <img alt="profile" src="/assets/profile.png" />
         <div className="text-sm">John Doe</div>
+        <img alt="arrow-down" src="/assets/icons/arrow_down.png" />
       </div>
     </header>
   );

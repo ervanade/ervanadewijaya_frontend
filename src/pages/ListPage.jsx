@@ -26,10 +26,20 @@ export default function ListPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-2">
+        <button className="p-3 bg-primary rounded-[5px]">
+            <img alt="icon_left" src="/assets/icons/arrow_left.png" />
+        </button>
+        <div className="flex gap-1 flex-col">
         <h2 className="text-2xl font-semibold">Ruang Meeting</h2>
+        <p className="text-[#868686]">Ruang Meeting</p>
+        </div>
+
+     
+        </div>
         <button
           onClick={() => nav("/add")}
-          className="px-4 py-2 bg-teal-600 text-white rounded"
+          className="px-4 py-2 bg-primary text-white rounded cursor-pointer"
         >
           Pesan Ruangan
         </button>

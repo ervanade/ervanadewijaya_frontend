@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import { createMeeting } from "../api/api";
 
 const ROOMS = [
@@ -39,13 +40,11 @@ export default function AddMeeting() {
   const [roomCapacity, setRoomCapacity] = useState(null);
   const [selectedConsumptions, setSelectedConsumptions] = useState([]);
 
-  // Update kapasitas saat memilih ruang
   useEffect(() => {
     const selectedRoom = ROOMS.find((r) => r.nama === form.ruang);
     setRoomCapacity(selectedRoom ? selectedRoom.kapasitas : "");
   }, [form.ruang]);
 
-  // Hitung nominal konsumsi otomatis
   useEffect(() => {
     const total = selectedConsumptions.reduce((sum, key) => {
       const item = CONSUMPTIONS.find((c) => c.key === key);
@@ -65,22 +64,29 @@ export default function AddMeeting() {
     try {
       await createMeeting({
         ...form,
+        tanggal: new Date(form.tanggal).toISOString(),
         kapasitas: roomCapacity,
         jenisKonsumsi: selectedConsumptions.join(","),
       });
-      alert("Berhasil Menyimpan Data!");
+
+      toast.success("Berhasil menyimpan data!");
       nav("/");
     } catch (err) {
-      alert(err.response?.data?.message || "Gagal menyimpan data");
+      toast.error(err.response?.data?.message || "Gagal menyimpan data");
     }
   };
 
   return (
-    <div className="p-6 bg-white shadow rounded">
-      <h2 className="text-2xl font-semibold mb-4">Tambah Booking Meeting</h2>
+    <div className="p-6 bg-white shadow rounded space-y-6">
 
-      <form onSubmit={handleSubmit} className="grid gap-4 md:grid-cols-2">
-        <div>
+      {/* Informasi Ruang Meeting */}
+      <h2 className="text-xl font-semibold">Informasi Ruang Meeting</h2>
+
+      <form onSubmit={handleSubmit} className="grid gap-4 md:grid-cols-3">
+
+        {/* Unit */}
+        <div className="md:col-span-1">
+          <label className="block mb-1 text-sm">Unit</label>
           <select
             className="w-full border rounded p-2"
             value={form.unit}
@@ -88,17 +94,14 @@ export default function AddMeeting() {
           >
             <option value="">Pilih Unit</option>
             {UNITS.map((u) => (
-              <option key={u} value={u}>
-                {u}
-              </option>
+              <option key={u} value={u}>{u}</option>
             ))}
           </select>
         </div>
 
-        <div>
-          <label className="block text-sm font-medium mb-1">
-            Pilihan Ruangan
-          </label>
+        {/* Ruangan */}
+        <div className="md:col-span-1">
+          <label className="block mb-1 text-sm">Ruang Meeting</label>
           <select
             className="w-full border rounded p-2"
             value={form.ruang}
@@ -106,75 +109,79 @@ export default function AddMeeting() {
           >
             <option value="">Pilih Ruangan</option>
             {ROOMS.map((r) => (
-              <option key={r.nama} value={r.nama}>
-                {r.nama}
-              </option>
+              <option key={r.nama} value={r.nama}>{r.nama}</option>
             ))}
           </select>
         </div>
 
-        <div>
-          <label className="block text-sm font-medium mb-1">Kapasitas</label>
-          <input
-            className="w-full border rounded p-2 bg-gray-100"
-            disabled
-            value={roomCapacity || ""}
-          />
-        </div>
-
+        {/* Kosong biar layout pas */}
         <div></div>
 
-        <div>
-          <label className="block text-sm font-medium mb-1">
-            Tanggal Rapat
-          </label>
+        {/* Kapasitas */}
+        <div className="md:col-span-1">
+          <label className="block mb-1 text-sm">Kapasitas Ruangan</label>
           <input
-            type="date"
-            className="w-full border rounded p-2"
-            value={form.tanggal}
-            onChange={(e) => setForm({ ...form, tanggal: e.target.value })}
+            disabled
+            value={roomCapacity || ""}
+            className="w-full border rounded p-2 bg-gray-100"
           />
         </div>
+      </form>
 
-        <div className="flex gap-2">
-          <input
-            type="time"
-            className="w-full border rounded p-2"
+      {/* Informasi Rapat */}
+      <h2 className="text-xl font-semibold">Informasi Rapat</h2>
+
+      <form onSubmit={handleSubmit} className="grid gap-4 md:grid-cols-3">
+
+        {/* Tanggal */}
+        <div>
+          <label className="block text-sm font-medium mb-1">
+            Tanggal Rapat <span className="text-red-500">*</span>
+          </label>
+          <div className="relative">
+            <input
+              type="date"
+              className="w-full border rounded p-2 pl-10"
+              value={form.tanggal}
+              onChange={(e) => setForm({ ...form, tanggal: e.target.value })}
+            />
+            <span className="absolute left-3 top-2 text-gray-400"><img src="/assets/icons/calendar.png" alt="calendar-icon" /></span>
+          </div>
+        </div>
+
+        {/* Waktu Mulai */}
+        <div>
+          <label className="block text-sm mb-1">Waktu Mulai</label>
+          <input type="time" className="w-full border rounded p-2"
             value={form.waktuMulai}
             onChange={(e) => setForm({ ...form, waktuMulai: e.target.value })}
           />
-          <input
-            type="time"
-            className="w-full border rounded p-2"
+        </div>
+
+        {/* Waktu Selesai */}
+        <div>
+          <label className="block text-sm mb-1">Waktu Selesai</label>
+          <input type="time" className="w-full border rounded p-2"
             value={form.waktuSelesai}
             onChange={(e) => setForm({ ...form, waktuSelesai: e.target.value })}
           />
         </div>
 
+        {/* Jumlah Peserta */}
         <div>
-          <label className="block text-sm font-medium mb-1">
-            Jumlah Peserta
-          </label>
-          <input
-            type="number"
-            min="1"
-            className="w-full border rounded p-2"
+          <label className="block text-sm mb-1">Jumlah Peserta</label>
+          <input type="number" min="1" className="w-full border rounded p-2"
             value={form.jumlahPeserta}
-            onChange={(e) =>
-              setForm({ ...form, jumlahPeserta: e.target.value })
-            }
-          />
+            onChange={(e) => setForm({ ...form, jumlahPeserta: e.target.value })} />
         </div>
 
-        <div className="md:col-span-2">
-          <label className="block text-sm font-medium mb-1">
-            Jenis Konsumsi
-          </label>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+        {/* Jenis Konsumsi */}
+        <div className="md:col-span-3">
+          <label className="block text-sm font-medium mb-2">Jenis Konsumsi</label>
+          <div className="space-y-2">
             {CONSUMPTIONS.map((c) => (
               <label key={c.key} className="flex items-center gap-2">
-                <input
-                  type="checkbox"
+                <input type="checkbox"
                   checked={selectedConsumptions.includes(c.key)}
                   onChange={() => toggleConsumption(c.key)}
                 />
@@ -184,32 +191,23 @@ export default function AddMeeting() {
           </div>
         </div>
 
-        <div>
-          <label className="block text-sm font-medium mb-1">
-            Total Konsumsi
-          </label>
-          <input
-            className="w-full border rounded p-2 bg-gray-100"
-            disabled
-            value={form.nominalKonsumsi}
-          />
+        {/* Nominal */}
+        <div className="flex items-center gap-2 md:col-span-1">
+          <span className="bg-primary text-white px-3 py-2 rounded">Rp</span>
+          <input disabled className="w-full border rounded p-2 bg-gray-100"
+            value={form.nominalKonsumsi.toLocaleString()} />
         </div>
 
-        <div className="md:col-span-2 flex justify-end gap-3 pt-4">
-          <button
-            type="button"
-            onClick={() => nav(-1)}
-            className="px-4 py-2 border rounded"
-          >
+        {/* Actions */}
+        <div className="md:col-span-3 flex justify-end gap-3 pt-4">
+          <button type="button" onClick={() => nav(-1)} className="px-4 py-2 border rounded">
             Batal
           </button>
-          <button
-            type="submit"
-            className="px-4 py-2 bg-teal-600 text-white rounded bg-primary"
-          >
+          <button type="submit" className="px-4 py-2 bg-teal-700 text-white rounded">
             Simpan
           </button>
         </div>
+
       </form>
     </div>
   );
