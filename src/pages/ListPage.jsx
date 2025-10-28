@@ -39,9 +39,9 @@ export default function ListPage() {
         </div>
         <button
           onClick={() => nav("/add")}
-          className="px-4 py-2 bg-primary text-white rounded cursor-pointer"
+          className="px-4 py-2 bg-primary text-white rounded cursor-pointer flex items-center gap-2"
         >
-          Pesan Ruangan
+          <span><img src="/assets/icons/plus.png" alt="Icon Plus" /></span>Pesan Ruangan
         </button>
       </div>
 
@@ -75,7 +75,7 @@ export default function ListPage() {
             ) : (
               data.map((item) => (
                 <tr key={item.id} className="border-t border-[#EBEBEB] text-[#868686]">
-                  <td className="p-3 text-[#000]">{item.unit}</td>
+                  <td className="p-3 text-[#000] font-bold">{item.unit}</td>
                   <td className="p-3">{item.ruang}</td>
                   <td className="p-3">{item.kapasitas}</td>
                   <td className="p-3">

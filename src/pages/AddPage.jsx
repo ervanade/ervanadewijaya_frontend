@@ -124,7 +124,7 @@ export default function AddMeeting() {
           </select>
         </div>
 
-        {/* Kosong biar layout pas */}
+
         <div></div>
 
         {/* Kapasitas */}
