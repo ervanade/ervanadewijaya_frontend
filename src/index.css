@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import "tailwindcss";
+
+
+@theme {
+  /* Definisi Warna Primary: 
+     Ini akan menghasilkan utility seperti bg-primary, text-primary, border-primary, dll.
+  */
+  --color-primary: #4A8394; /* Contoh warna dark blue */
+  --tw-gradient-navbar: linear-gradient(90deg, #11191A 0%, #296377 100%);
+
+}
+
+body {
+  background: #FAF7F7;
+  font-family: "Inter", sans-serif;
+
+}
