@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { createMeeting } from "../api/api";
 
@@ -78,7 +78,17 @@ export default function AddMeeting() {
 
   return (
     <div className="p-6 bg-white shadow rounded space-y-6">
+<div className="flex items-center gap-2">
+        <Link to="/" className="p-3 bg-primary rounded-[5px]">
+            <img alt="icon_left" src="/assets/icons/arrow_left.png" />
+        </Link>
+        <div className="flex gap-1 flex-col">
+        <h2 className="text-2xl font-semibold">Ruang Meeting</h2>
+        <p className="text-[#868686]">Ruang Meeting</p>
+        </div>
 
+     
+        </div>
       {/* Informasi Ruang Meeting */}
       <h2 className="text-xl font-semibold">Informasi Ruang Meeting</h2>
 
