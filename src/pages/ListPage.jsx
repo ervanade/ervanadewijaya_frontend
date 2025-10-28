@@ -49,14 +49,14 @@ export default function ListPage() {
         <table className="w-full table-auto">
           <thead className="bg-gray-50 text-sm text-left">
             <tr>
-              <th className="p-3">ID</th>
-              <th className="p-3">Unit</th>
-              <th className="p-3">Ruang</th>
-              <th className="p-3">Tanggal</th>
-              <th className="p-3">Waktu</th>
-              <th className="p-3">Peserta</th>
-              <th className="p-3">Konsumsi</th>
-              <th className="p-3">Nominal</th>
+              <th className="p-3">UNIT</th>
+              <th className="p-3">RUANG MEETING</th>
+              <th className="p-3">KAPASITAS</th>
+              <th className="p-3">TANGGAL RAPAT</th>
+              <th className="p-3">WAKTU</th>
+              <th className="p-3">JUMLAH PESERTA</th>
+              <th className="p-3">JENIS KONSUMSI</th>
+              {/* <th className="p-3">Nominal</th> */}
             </tr>
           </thead>
           <tbody>
@@ -74,10 +74,10 @@ export default function ListPage() {
               </tr>
             ) : (
               data.map((item) => (
-                <tr key={item.id} className="border-t">
-                  <td className="p-3">{item.id}</td>
-                  <td className="p-3">{item.unit}</td>
+                <tr key={item.id} className="border-t border-[#EBEBEB] text-[#868686]">
+                  <td className="p-3 text-[#000]">{item.unit}</td>
                   <td className="p-3">{item.ruang}</td>
+                  <td className="p-3">{item.kapasitas}</td>
                   <td className="p-3">
                     {new Date(item.tanggal).toLocaleDateString()}
                   </td>
@@ -86,9 +86,9 @@ export default function ListPage() {
                   </td>
                   <td className="p-3">{item.jumlahPeserta}</td>
                   <td className="p-3">{item.jenisKonsumsi}</td>
-                  <td className="p-3">
+                  {/* <td className="p-3">
                     Rp {Number(item.nominalKonsumsi).toLocaleString()}
-                  </td>
+                  </td> */}
                 </tr>
               ))
             )}

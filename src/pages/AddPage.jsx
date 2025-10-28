@@ -98,7 +98,7 @@ export default function AddMeeting() {
         <div className="md:col-span-1">
           <label className="block mb-1 text-sm">Unit</label>
           <select
-            className="w-full border rounded p-2"
+            className="w-full border border-[#EBEBEB] rounded p-2"
             value={form.unit}
             onChange={(e) => setForm({ ...form, unit: e.target.value })}
           >
@@ -113,7 +113,7 @@ export default function AddMeeting() {
         <div className="md:col-span-1">
           <label className="block mb-1 text-sm">Ruang Meeting</label>
           <select
-            className="w-full border rounded p-2"
+            className="w-full border border-[#EBEBEB] rounded p-2"
             value={form.ruang}
             onChange={(e) => setForm({ ...form, ruang: e.target.value })}
           >
@@ -133,7 +133,7 @@ export default function AddMeeting() {
           <input
             disabled
             value={roomCapacity || ""}
-            className="w-full border rounded p-2 bg-gray-100"
+            className="w-full border border-[#EBEBEB] rounded p-2 bg-gray-100"
           />
         </div>
       </form>
@@ -151,7 +151,7 @@ export default function AddMeeting() {
           <div className="relative">
             <input
               type="date"
-              className="w-full border rounded p-2 pl-10"
+              className="w-full border border-[#EBEBEB] rounded p-2 pl-10"
               value={form.tanggal}
               onChange={(e) => setForm({ ...form, tanggal: e.target.value })}
             />
@@ -162,7 +162,7 @@ export default function AddMeeting() {
         {/* Waktu Mulai */}
         <div>
           <label className="block text-sm mb-1">Waktu Mulai</label>
-          <input type="time" className="w-full border rounded p-2"
+          <input type="time" className="w-full border border-[#EBEBEB] rounded p-2"
             value={form.waktuMulai}
             onChange={(e) => setForm({ ...form, waktuMulai: e.target.value })}
           />
@@ -171,7 +171,7 @@ export default function AddMeeting() {
         {/* Waktu Selesai */}
         <div>
           <label className="block text-sm mb-1">Waktu Selesai</label>
-          <input type="time" className="w-full border rounded p-2"
+          <input type="time" className="w-full border border-[#EBEBEB] rounded p-2"
             value={form.waktuSelesai}
             onChange={(e) => setForm({ ...form, waktuSelesai: e.target.value })}
           />
@@ -180,7 +180,7 @@ export default function AddMeeting() {
         {/* Jumlah Peserta */}
         <div>
           <label className="block text-sm mb-1">Jumlah Peserta</label>
-          <input type="number" min="1" className="w-full border rounded p-2"
+          <input type="number" min="1" className="w-full border border-[#EBEBEB] rounded p-2"
             value={form.jumlahPeserta}
             onChange={(e) => setForm({ ...form, jumlahPeserta: e.target.value })} />
         </div>
@@ -204,13 +204,13 @@ export default function AddMeeting() {
         {/* Nominal */}
         <div className="flex items-center gap-2 md:col-span-1">
           <span className="bg-primary text-white px-3 py-2 rounded">Rp</span>
-          <input disabled className="w-full border rounded p-2 bg-gray-100"
+          <input disabled className="w-full border border-[#EBEBEB] rounded p-2 bg-gray-100"
             value={form.nominalKonsumsi.toLocaleString()} />
         </div>
 
         {/* Actions */}
         <div className="md:col-span-3 flex justify-end gap-3 pt-4">
-          <button type="button" onClick={() => nav(-1)} className="px-4 py-2 border rounded">
+          <button type="button" onClick={() => nav(-1)} className="px-4 py-2 border border-[#EBEBEB] rounded">
             Batal
           </button>
           <button type="submit" className="px-4 py-2 bg-teal-700 text-white rounded">
